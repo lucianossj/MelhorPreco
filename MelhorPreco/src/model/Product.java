@@ -4,6 +4,8 @@ package model;
 public class Product {
 
     private String productName;
+    private Category category;
+    private Establishment establishment;
     private double price;
 
     public String getProductName() {
@@ -20,6 +22,22 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Establishment getEstablishment() {
+        return establishment;
+    }
+
+    public void setEstablishment(Establishment establishment) {
+        this.establishment = establishment;
     }
     
     

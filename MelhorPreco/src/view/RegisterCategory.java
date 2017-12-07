@@ -1,6 +1,9 @@
 
 package view;
 
+import javax.swing.JOptionPane;
+import model.Category;
+
 public class RegisterCategory extends javax.swing.JDialog {
 
     public RegisterCategory(java.awt.Frame parent, boolean modal) {
@@ -14,8 +17,8 @@ public class RegisterCategory extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        categ = new javax.swing.JTextField();
+        register = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
@@ -29,10 +32,15 @@ public class RegisterCategory extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel1.setText("Nome da Categoria:");
 
-        jTextField1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        categ.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        jButton1.setText("Cadastrar Categoria");
+        register.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        register.setText("Cadastrar Categoria");
+        register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jLabel2.setText("Registrar Categoria");
@@ -49,7 +57,7 @@ public class RegisterCategory extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(register)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -58,7 +66,7 @@ public class RegisterCategory extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1)))
+                        .addComponent(categ)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -71,10 +79,10 @@ public class RegisterCategory extends javax.swing.JDialog {
                 .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(register)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -100,15 +108,27 @@ public class RegisterCategory extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+
+        Category category = new Category();
+
+        category.setCategory(categ.getText());
+        
+        controller.Main.categories.append(category);
+
+        JOptionPane.showMessageDialog(null, "Categoria cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+
+        categ.setText("");
+        
+    }//GEN-LAST:event_registerActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField categ;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton register;
     // End of variables declaration//GEN-END:variables
 }

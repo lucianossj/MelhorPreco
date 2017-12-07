@@ -140,7 +140,7 @@ public class LinkedList<T> implements Iterable<T>, Sortable<T> {
 	
 	private Node head;
 	private Node tail;
-	
+	        
 	/**
 	 * Check if the container is empty.
 	 * @return True if there are no elements stored, false otherwise.
