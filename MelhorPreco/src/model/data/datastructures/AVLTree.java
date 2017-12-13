@@ -1,3 +1,5 @@
+package model.data.datastructures;
+
 /*
  * Data Structures and Algorithms.
  * Copyright (C) 2016 Rafael Guterres Jeffman
@@ -6,8 +8,6 @@
  * licensing restrictions that might apply.
  *
  */
-
-package datastructures;
 
 class AVLNode<K extends Comparable<K>,V> {
 	public final K key;

@@ -3,6 +3,7 @@ package view;
 
 import controller.Main;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import model.Category;
 import model.Establishment;
 import model.Product;
@@ -174,8 +175,9 @@ public class UpdateProduct extends javax.swing.JDialog {
                                 .addComponent(registerProd)
                                 .addGap(55, 55, 55))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(prod, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(okProd)))))
                 .addContainerGap())
         );
@@ -246,7 +248,15 @@ public class UpdateProduct extends javax.swing.JDialog {
         cat.setEnabled(true);
         okCat.setEnabled(true);
         
+        cat.removeAllItems();
+        prod.removeAllItems();
+        
         cat.addItem("Selecione...");
+        prod.addItem("Selecione...");
+        
+        price.setText("00,00");
+        
+        price.setEnabled(false);
         
         for (Iterator<Category> it = controller.Main.categories.iterator(); it.hasNext();) {
             
@@ -255,15 +265,13 @@ public class UpdateProduct extends javax.swing.JDialog {
             cat.addItem(ca.getCategory());
             
         }
-        
+                
     }//GEN-LAST:event_okEstActionPerformed
 
     private void okCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCatActionPerformed
 
         prod.setEnabled(true);
         registerProd.setEnabled(true);
-        
-        prod.addItem("Selecione...");
         
         for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
             
@@ -314,9 +322,16 @@ public class UpdateProduct extends javax.swing.JDialog {
             
             Product product = it.next();
             
+            System.out.println(product.getProductName()+ " - "+ product.getEstablishment().getEstablishment() +"\n");
+            
             if(product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())){
             
                 product.setPrice(Double.parseDouble(price.getText()));
+                it.remove();
+                
+                controller.Main.products.append(product);
+                
+                JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
                 
             }
         
