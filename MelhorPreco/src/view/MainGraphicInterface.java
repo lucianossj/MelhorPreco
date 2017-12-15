@@ -1,5 +1,13 @@
-
 package view;
+
+import controller.Main;
+import datastructures.BinarySearchTree;
+import datastructures.DuplicateKeyException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Product;
 
 public class MainGraphicInterface extends javax.swing.JDialog {
 
@@ -41,6 +49,11 @@ public class MainGraphicInterface extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         categs.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         categs.setText("Cadastrar Categoria");
@@ -142,36 +155,88 @@ public class MainGraphicInterface extends javax.swing.JDialog {
 
         RegisterEstablishment registerEstablishment = new RegisterEstablishment(null, true);
         registerEstablishment.setVisible(true);
-        
+
     }//GEN-LAST:event_estabsActionPerformed
 
     private void categsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categsActionPerformed
-        
+
         RegisterCategory registerCategory = new RegisterCategory(null, true);
         registerCategory.setVisible(true);
-        
+
     }//GEN-LAST:event_categsActionPerformed
 
     private void prodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodsActionPerformed
-        
+
         RegisterProduct registerProduct = new RegisterProduct(null, true);
         registerProduct.setVisible(true);
-        
+
     }//GEN-LAST:event_prodsActionPerformed
 
     private void upProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upProdActionPerformed
 
         UpdateProduct updateProduct = new UpdateProduct(null, true);
         updateProduct.setVisible(true);
-        
+
     }//GEN-LAST:event_upProdActionPerformed
 
     private void searchMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMPActionPerformed
+
+        String requiredProduct = "Pão";
+
+        ArrayList<Product> arrayProds = new ArrayList();
+
+        for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
+
+            Product p = it.next();
+
+            if (p.getProductName().equals(requiredProduct)) {
+
+                arrayProds.add(p);
+
+            }
+
+        }
+
+        BinarySearchTree bst = new BinarySearchTree();
         
+        for (int i = 0; i < arrayProds.size(); i++) {
+
+            Product verificationProd = new Product();
+
+            for (int j = i; j < arrayProds.size(); j++) {
+                
+                if (verificationProd.getPrice() == arrayProds.get(i).getPrice()) {
+
+                    String estab1 = arrayProds.get(i).getEstablishment().getEstablishment();
+                    String estab2 = arrayProds.get(j).getEstablishment().getEstablishment();
+                    
+                    arrayProds.get(i).getEstablishment().setEstablishment(estab1 + " - " +estab2);
+                    arrayProds.remove(j);
+
+                }
+         
+            }
+            
+            try {
+                
+                bst.insert(arrayProds.get(i).getPrice());
+                
+            } catch (DuplicateKeyException ex) {
+                Logger.getLogger(MainGraphicInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
         
-        
+        bst.printTree(bst.getRaiz());
+
     }//GEN-LAST:event_searchMPActionPerformed
-    
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        this.dispose();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton categs;
     private javax.swing.JButton estabs;

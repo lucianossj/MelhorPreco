@@ -74,6 +74,11 @@ public class RegisterProduct extends javax.swing.JDialog {
 
         back.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         back.setText("Voltar");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
         categ.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
 
@@ -174,12 +179,17 @@ public class RegisterProduct extends javax.swing.JDialog {
 
         JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
 
-        this.dispose();
-        
-        UpdateProduct updateProduct = new UpdateProduct(null, true);
-        updateProduct.setVisible(true);
+        prod.setText("");
+        categ.setSelectedItem(0);
+        est.setSelectedItem(0);
         
     }//GEN-LAST:event_registerActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+
+        this.dispose();
+        
+    }//GEN-LAST:event_backActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;

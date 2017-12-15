@@ -3,7 +3,6 @@ package view;
 
 import controller.Main;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 import model.Category;
 import model.Establishment;
 import model.Product;
@@ -83,6 +82,11 @@ public class UpdateProduct extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel4.setText("Estabelecimento:");
@@ -120,7 +124,7 @@ public class UpdateProduct extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel5.setText("Preço:");
 
-        price.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        price.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
         price.setText("R$ 00,00");
 
         okProd.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
@@ -148,13 +152,6 @@ public class UpdateProduct extends javax.swing.JDialog {
                         .addComponent(est, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(okEst))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(62, 62, 62)
-                        .addComponent(cat, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(okCat))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(updateProd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,15 +167,19 @@ public class UpdateProduct extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(prod, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(okProd))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(registerProd)
-                                .addGap(55, 55, 55))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(prod, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(62, 62, 62)
+                                .addComponent(cat, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(okProd)))))
+                                .addComponent(okCat))
+                            .addComponent(registerProd, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -207,9 +208,9 @@ public class UpdateProduct extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(okProd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registerProd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,18 +246,12 @@ public class UpdateProduct extends javax.swing.JDialog {
 
     private void okEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okEstActionPerformed
 
+        est.setEnabled(false);
+        
         cat.setEnabled(true);
         okCat.setEnabled(true);
         
-        cat.removeAllItems();
-        prod.removeAllItems();
-        
         cat.addItem("Selecione...");
-        prod.addItem("Selecione...");
-        
-        price.setText("00,00");
-        
-        price.setEnabled(false);
         
         for (Iterator<Category> it = controller.Main.categories.iterator(); it.hasNext();) {
             
@@ -265,13 +260,17 @@ public class UpdateProduct extends javax.swing.JDialog {
             cat.addItem(ca.getCategory());
             
         }
-                
+        
     }//GEN-LAST:event_okEstActionPerformed
 
     private void okCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCatActionPerformed
 
+        cat.setEnabled(false);
+        
         prod.setEnabled(true);
         registerProd.setEnabled(true);
+        
+        prod.addItem("Selecione...");
         
         for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
             
@@ -306,7 +305,7 @@ public class UpdateProduct extends javax.swing.JDialog {
             
             Product product = it.next();
             
-            if(product.getProductName().equals(prod.getSelectedItem())){
+            if(product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())){
             
                 price.setText(Double.toString(product.getPrice()));
                 
@@ -322,22 +321,21 @@ public class UpdateProduct extends javax.swing.JDialog {
             
             Product product = it.next();
             
-            System.out.println(product.getProductName()+ " - "+ product.getEstablishment().getEstablishment() +"\n");
-            
             if(product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())){
             
                 product.setPrice(Double.parseDouble(price.getText()));
-                it.remove();
-                
-                controller.Main.products.append(product);
-                
-                JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
                 
             }
         
         }
         
     }//GEN-LAST:event_updateProdActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        this.dispose();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cat;

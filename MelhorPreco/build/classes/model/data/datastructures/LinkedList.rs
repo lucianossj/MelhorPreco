@@ -1,0 +1,3 @@
+datastructures.LinkedList$ListaIterator
+datastructures.LinkedList
+datastructures.LinkedList$Node

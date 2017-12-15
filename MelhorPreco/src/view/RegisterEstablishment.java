@@ -50,6 +50,11 @@ public class RegisterEstablishment extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         jLabel3.setText("Endereço:");
@@ -139,6 +144,12 @@ public class RegisterEstablishment extends javax.swing.JDialog {
         adress.setText("");
 
     }//GEN-LAST:event_registerActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        this.dispose();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
