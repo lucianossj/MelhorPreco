@@ -8,6 +8,8 @@
  */
 package datastructures;
 
+import java.util.ArrayList;
+
 class BSTNode<T extends Comparable<T>> {
 
     private T value;
@@ -137,6 +139,24 @@ public class BinarySearchTree<T extends Comparable<T>> {
             printTree(node.getRight());
             
         }
+        
+    }
+    
+    ArrayList<T> allDataArray = new ArrayList();
+    
+    public ArrayList<T> allDataArray(BSTNode<T> node){
+    
+        if(node != null){
+        
+            allDataArray(node.getLeft());
+            
+            allDataArray.add(node.getValue());
+            
+            allDataArray(node.getRight());
+            
+        }
+        
+        return allDataArray;
         
     }
 

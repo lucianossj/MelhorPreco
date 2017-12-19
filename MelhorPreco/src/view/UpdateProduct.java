@@ -3,6 +3,7 @@ package view;
 
 import controller.Main;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import model.Category;
 import model.Establishment;
 import model.Product;
@@ -328,6 +329,10 @@ public class UpdateProduct extends javax.swing.JDialog {
             }
         
         }
+        
+        JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!!!\nObrigado pela colaboração!!!", "PRODUTO ATUALIZADO", JOptionPane.INFORMATION_MESSAGE);
+        
+        this.dispose();
         
     }//GEN-LAST:event_updateProdActionPerformed
 

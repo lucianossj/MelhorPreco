@@ -181,53 +181,8 @@ public class MainGraphicInterface extends javax.swing.JDialog {
 
     private void searchMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMPActionPerformed
 
-        String requiredProduct = "Pão";
-
-        ArrayList<Product> arrayProds = new ArrayList();
-
-        for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
-
-            Product p = it.next();
-
-            if (p.getProductName().equals(requiredProduct)) {
-
-                arrayProds.add(p);
-
-            }
-
-        }
-
-        BinarySearchTree bst = new BinarySearchTree();
-        
-        for (int i = 0; i < arrayProds.size(); i++) {
-
-            Product verificationProd = new Product();
-
-            for (int j = i; j < arrayProds.size(); j++) {
-                
-                if (verificationProd.getPrice() == arrayProds.get(i).getPrice()) {
-
-                    String estab1 = arrayProds.get(i).getEstablishment().getEstablishment();
-                    String estab2 = arrayProds.get(j).getEstablishment().getEstablishment();
-                    
-                    arrayProds.get(i).getEstablishment().setEstablishment(estab1 + " - " +estab2);
-                    arrayProds.remove(j);
-
-                }
-         
-            }
-            
-            try {
-                
-                bst.insert(arrayProds.get(i).getPrice());
-                
-            } catch (DuplicateKeyException ex) {
-                Logger.getLogger(MainGraphicInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        
-        bst.printTree(bst.getRaiz());
+        SearchBestPrice sbp = new SearchBestPrice(null, rootPaneCheckingEnabled);
+        sbp.setVisible(true);
 
     }//GEN-LAST:event_searchMPActionPerformed
 
