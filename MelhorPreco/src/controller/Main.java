@@ -10,7 +10,9 @@ import view.MainGraphicInterface;
 
 public class Main {
  
-    public static LinkedList<Establishment> establishments = new LinkedList();
+    FileReader fr = new FileReader();
+    
+    public static LinkedList<Establishment> establishments = FileReader.getEstsData();
     public static LinkedList<Category> categories = new LinkedList();
     public static LinkedList<Product> products = new LinkedList();
     
