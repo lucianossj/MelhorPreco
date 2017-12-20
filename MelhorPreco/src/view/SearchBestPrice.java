@@ -2,11 +2,14 @@ package view;
 
 import datastructures.BinarySearchTree;
 import datastructures.DuplicateKeyException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Establishment;
 import model.Product;
 
 public class SearchBestPrice extends javax.swing.JDialog {
@@ -39,6 +42,7 @@ public class SearchBestPrice extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        bestPrice.setBackground(new java.awt.Color(130, 227, 153));
         bestPrice.setFont(new java.awt.Font("Caladea", 1, 18)); // NOI18N
 
         prod.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
@@ -187,25 +191,39 @@ public class SearchBestPrice extends javax.swing.JDialog {
 
             Product p = it.next();
 
-            if (p.getProductName().equals(requiredProduct)) {
-
-                Product verificationProd = new Product();
-
-                for (int i = 0; i < arrayProds.size(); i++) {
-
-                    if (verificationProd.getPrice() == arrayProds.get(i).getPrice()) {
-
-                        String estab1 = p.getEstablishment().getEstablishment();
-                        String estab2 = arrayProds.get(i).getEstablishment().getEstablishment();
-                        
-                        arrayProds.get(i).getEstablishment().setEstablishment(estab1 + " - " + estab2);
-                        arrayProds.remove(i);
-
-                    }
-
-                }
+            if (p.getProductName().contains(requiredProduct)) {
 
                 arrayProds.add(p);
+
+            }
+
+        }
+
+        ArrayList<Product> arrayProds2 = new ArrayList();
+
+        for (int i = 0; i < arrayProds.size(); i++) {
+
+            for (int j = 0; j < arrayProds2.size(); j++) {
+
+                if (arrayProds.get(i).getPrice() == arrayProds2.get(j).getPrice()) {
+
+                    String estabs = arrayProds.get(i).getEstablishment().getEstablishment() + " - " + arrayProds.get(i).getEstablishment().getEstablishment();
+                    Establishment ests = new Establishment();
+                    ests.setEstablishment(estabs);
+
+                    Product finalProduct = new Product();
+
+                    finalProduct.setEstablishment(ests);
+                    finalProduct.setProductName(arrayProds.get(i).getProductName());
+                    finalProduct.setPrice(arrayProds.get(i).getPrice());
+
+                    arrayProds2.add(finalProduct);
+
+                } else {
+
+                    arrayProds2.add(arrayProds.get(i));
+
+                }
 
             }
 
@@ -235,15 +253,21 @@ public class SearchBestPrice extends javax.swing.JDialog {
 
                 if (bestPriceRanking.get(i) == arrayProds.get(j).getPrice()) {
 
+                    double priceDouble = arrayProds.get(j).getPrice();
+                    String priceString = new DecimalFormat("0.00").format(priceDouble);
+
                     String est = arrayProds.get(j).getEstablishment().getEstablishment();
                     String pro = arrayProds.get(j).getProductName();
-                    String pri = Double.toString(arrayProds.get(j).getPrice());
+                    String pri = priceString;
 
-                    dtm.addRow(new Object[]{est, pro, pri});
+                    dtm.addRow(new Object[]{est, pro, "R$ " + pri});
 
                     if (i == 0) {
 
-                        bestPrice.setText(arrayProds.get(j).getEstablishment().getEstablishment() + " - " + arrayProds.get(j).getProductName() + " - " + arrayProds.get(j).getPrice());
+                        double bestPriceDouble = arrayProds.get(j).getPrice();
+                        String bestPriceString = new DecimalFormat("0.00").format(bestPriceDouble);
+
+                        bestPrice.setText(arrayProds.get(j).getEstablishment().getEstablishment() + " - " + arrayProds.get(j).getProductName() + " - R$ " + bestPriceString);
 
                     }
 
@@ -254,7 +278,8 @@ public class SearchBestPrice extends javax.swing.JDialog {
         }
 
         searchBestPrice.setEnabled(false);
-
+        prod.setEnabled(false);
+        
     }//GEN-LAST:event_searchBestPriceActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

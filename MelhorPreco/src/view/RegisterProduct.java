@@ -1,4 +1,3 @@
-
 package view;
 
 import java.util.Iterator;
@@ -12,23 +11,27 @@ public class RegisterProduct extends javax.swing.JDialog {
     public RegisterProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
+        categ.addItem("Selecione...");
+
         for (Iterator<Category> it = controller.Main.categories.iterator(); it.hasNext();) {
-            
+
             Category ca = it.next();
-            
+
             categ.addItem(ca.getCategory());
-            
+
         }
-        
+
+        est.addItem("Selecione...");
+
         for (Iterator<Establishment> it = controller.Main.establishments.iterator(); it.hasNext();) {
-            
+
             Establishment es = it.next();
-            
+
             this.est.addItem(es.getEstablishment());
-            
+
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -166,29 +169,37 @@ public class RegisterProduct extends javax.swing.JDialog {
         Product product = new Product();
         Category category = new Category();
         Establishment establishment = new Establishment();
-        
-        product.setProductName(prod.getText());
-        
-        category.setCategory((String) categ.getSelectedItem());
-        product.setCategory(category);
-        
-        establishment.setEstablishment((String) est.getSelectedItem());
-        product.setEstablishment(establishment);
-        
-        controller.Main.products.append(product);
 
-        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+        if (prod.getText().isEmpty() || categ.getSelectedIndex() == 0 || est.getSelectedIndex() == 0) {
 
-        prod.setText("");
-        categ.setSelectedItem(0);
-        est.setSelectedItem(0);
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos corretamente e tente novamente.", "DADOS INVÁLIDOS!!!", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            product.setProductName(prod.getText());
+
+            category.setCategory((String) categ.getSelectedItem());
+            product.setCategory(category);
+
+            establishment.setEstablishment((String) est.getSelectedItem());
+            product.setEstablishment(establishment);
+
+            controller.Main.products.append(product);
+
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+
+            prod.setText("");
+            categ.setSelectedIndex(0);
+            est.setSelectedIndex(0);
+        
+        }
         
     }//GEN-LAST:event_registerActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
 
         this.dispose();
-        
+
     }//GEN-LAST:event_backActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

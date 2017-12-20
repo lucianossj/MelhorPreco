@@ -1,36 +1,36 @@
-
 package view;
 
-import controller.Main;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import model.Category;
 import model.Establishment;
 import model.Product;
+import java.text.DecimalFormat;
 
 public class UpdateProduct extends javax.swing.JDialog {
 
     public UpdateProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         cat.setEnabled(false);
         okCat.setEnabled(false);
         prod.setEnabled(false);
+        okProd.setEnabled(false);
         registerProd.setEnabled(false);
         price.setEnabled(false);
         updateProd.setEnabled(false);
-        
+
         est.addItem("Selecione...");
-        
+
         for (Iterator<Establishment> it = controller.Main.establishments.iterator(); it.hasNext();) {
-            
+
             Establishment es = it.next();
-            
+
             est.addItem(es.getEstablishment());
-            
+
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -248,100 +248,114 @@ public class UpdateProduct extends javax.swing.JDialog {
     private void okEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okEstActionPerformed
 
         est.setEnabled(false);
-        
+        okEst.setEnabled(false);
+
         cat.setEnabled(true);
         okCat.setEnabled(true);
-        
+
         cat.addItem("Selecione...");
-        
+
         for (Iterator<Category> it = controller.Main.categories.iterator(); it.hasNext();) {
-            
+
             Category ca = it.next();
-            
+
             cat.addItem(ca.getCategory());
-            
+
         }
-        
+
     }//GEN-LAST:event_okEstActionPerformed
 
     private void okCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okCatActionPerformed
 
         cat.setEnabled(false);
+        okCat.setEnabled(false);
         
         prod.setEnabled(true);
+        okProd.setEnabled(true);
         registerProd.setEnabled(true);
-        
+
         prod.addItem("Selecione...");
-        
+
         for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
-            
+
             Product product = it.next();
-            
-            if(product.getEstablishment().getEstablishment().equals(est.getSelectedItem())){
-            
+
+            if (product.getEstablishment().getEstablishment().equals(est.getSelectedItem())) {
+
                 prod.addItem(product.getProductName());
-                
+
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_okCatActionPerformed
 
     private void registerProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerProdActionPerformed
-        
-        RegisterProduct registerProd = new RegisterProduct(null, true);
-        
+
+        RegisterProduct registerProduct = new RegisterProduct(null, true);
+
         this.dispose();
-        
-        registerProd.setVisible(true);
-        
+
+        registerProduct.setVisible(true);
+
     }//GEN-LAST:event_registerProdActionPerformed
 
     private void okProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okProdActionPerformed
+
+        prod.setEnabled(false);
+        okProd.setEnabled(false);
         
         price.setEnabled(true);
         updateProd.setEnabled(true);
-        
+
         for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
-            
+
             Product product = it.next();
+
+            double priceDouble = product.getPrice();
             
-            if(product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())){
+            String priceString = new DecimalFormat("0.00").format(priceDouble);
             
-                price.setText(Double.toString(product.getPrice()));
-                
+            if (product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())) {
+
+                price.setText(priceString);
+
             }
-        
+
         }
-        
+
     }//GEN-LAST:event_okProdActionPerformed
 
     private void updateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProdActionPerformed
 
+        String priceString = price.getText();
+
+        double priceDouble = Double.parseDouble(priceString.replace(",", ".").replace("R$", "").replace(" ", ""));
+
         for (Iterator<Product> it = controller.Main.products.iterator(); it.hasNext();) {
-            
+
             Product product = it.next();
-            
-            if(product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())){
-            
-                product.setPrice(Double.parseDouble(price.getText()));
-                
+
+            if (product.getProductName().equals(prod.getSelectedItem()) && product.getEstablishment().getEstablishment().equals(est.getSelectedItem().toString())) {
+
+                product.setPrice(priceDouble);
+
             }
-        
+
         }
-        
+
         JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!!!\nObrigado pela colaboração!!!", "PRODUTO ATUALIZADO", JOptionPane.INFORMATION_MESSAGE);
-        
+
         this.dispose();
-        
+
     }//GEN-LAST:event_updateProdActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cat;
     private javax.swing.JComboBox<String> est;
@@ -365,4 +379,3 @@ public class UpdateProduct extends javax.swing.JDialog {
     private javax.swing.JButton updateProd;
     // End of variables declaration//GEN-END:variables
 }
-

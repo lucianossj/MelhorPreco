@@ -136,19 +136,45 @@ public class RegisterEstablishment extends javax.swing.JDialog {
         establishment.setEstablishment(est.getText());
         establishment.setAdress(adress.getText());
 
-        controller.Main.establishments.append(establishment);
+        boolean equals = false;
 
-        JOptionPane.showMessageDialog(null, "Estabelecimento cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+        for (Iterator<Establishment> it = controller.Main.establishments.iterator(); it.hasNext();) {
 
-        est.setText("");
-        adress.setText("");
+            if (it.next().getEstablishment().equals(est.getText())) {
 
+                equals = true;
+
+            }
+
+        }
+
+        if (est.getText().isEmpty() || adress.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos corretamente e tente novamente.", "CAMPOS VAZIOS!!!", JOptionPane.ERROR_MESSAGE);
+
+        } else if (equals == true) {
+
+            JOptionPane.showMessageDialog(null, "Estabelecimento já cadastrado. \n", "Já cadastrado!!!", JOptionPane.ERROR_MESSAGE);
+
+            est.setText("");
+
+        } else {
+        
+            controller.Main.establishments.append(establishment);
+
+            JOptionPane.showMessageDialog(null, "Estabelecimento cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+
+            est.setText("");
+            adress.setText("");
+        
+        }
+        
     }//GEN-LAST:event_registerActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

@@ -1,6 +1,6 @@
-
 package view;
 
+import interfaces.Iterator;
 import javax.swing.JOptionPane;
 import model.Category;
 
@@ -118,21 +118,47 @@ public class RegisterCategory extends javax.swing.JDialog {
         Category category = new Category();
 
         category.setCategory(categ.getText());
-        
-        controller.Main.categories.append(category);
 
-        JOptionPane.showMessageDialog(null, "Categoria cadastrado com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+        boolean equals = false;
 
-        categ.setText("");
+        for (Iterator<Category> it = controller.Main.categories.iterator(); it.hasNext();) {
+
+            if (it.next().getCategory().equals(categ.getText())) {
+
+                equals = true;
+
+            }
+
+        }
         
+        if (categ.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, preencha a categoria corretamente e tente novamente.", "CAMPO VAZIO!!!", JOptionPane.ERROR_MESSAGE);
+
+        } else if (equals == true) {
+
+            JOptionPane.showMessageDialog(null, "Categoria já cadastrada. \n", "Já cadastrada!!!", JOptionPane.ERROR_MESSAGE);
+
+            categ.setText("");
+
+        } else {
+
+            controller.Main.categories.append(category);
+
+            JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!!!", "SUCESSO!!!", JOptionPane.INFORMATION_MESSAGE);
+
+            categ.setText("");
+
+        }
+
     }//GEN-LAST:event_registerActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField categ;
     private javax.swing.JButton jButton2;
